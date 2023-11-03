@@ -1,4 +1,5 @@
 import React from 'react'
+import useScapeKey from '../../hooks/useScapeKey'
 
 const ToastContext = React.createContext()
 
@@ -14,19 +15,10 @@ function ToastProvider({ children }) {
       return updatedMessages
     })
   }
-  function handleDismissAll(event) {
-    if (event.key === 'Escape') {
-      setMessages([])
-    }
-  }
 
-  React.useEffect(() => {
-    document.addEventListener('keydown', handleDismissAll)
-
-    return () => {
-      document.removeEventListener('keydown', handleDismissAll)
-    }
-  }, [])
+  useScapeKey(() => {
+    setMessages([])
+  })
 
   function handleSubmit(e) {
     e.preventDefault()
