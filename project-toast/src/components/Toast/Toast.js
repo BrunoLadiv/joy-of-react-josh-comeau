@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
   AlertOctagon,
   AlertTriangle,
@@ -12,22 +13,22 @@ import VisuallyHidden from '../VisuallyHidden';
 import styles from './Toast.module.css';
 
 const ICONS_BY_VARIANT = {
-  notice: Info,
-  warning: AlertTriangle,
-  success: CheckCircle,
-  error: AlertOctagon,
+  notice: <Info/>,
+  warning: <AlertTriangle/>,
+  success: < CheckCircle />,
+  error: < AlertOctagon />,
 };
 
-function Toast() {
+function Toast({message,variant,setShowToast}) {
   return (
-    <div className={`${styles.toast} ${styles.notice}`}>
+    <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
-        <Info size={24} />
+        {variant && ICONS_BY_VARIANT[variant]}
       </div>
       <p className={styles.content}>
-        16 photos have been uploaded
+        {message}
       </p>
-      <button className={styles.closeButton}>
+      <button onClick={()=>setShowToast(false)} className={styles.closeButton}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>
