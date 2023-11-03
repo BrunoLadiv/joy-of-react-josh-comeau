@@ -14,6 +14,20 @@ function ToastProvider({ children }) {
       return updatedMessages
     })
   }
+  function dismissAll(event) {
+    if (event.key === 'Escape') {
+      setMessages([])
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener('keydown', dismissAll)
+
+    return () => {
+      document.removeEventListener('keydown', dismissAll)
+    }
+  }, [])
+
   function handleSubmit(e) {
     e.preventDefault()
 
